@@ -12,8 +12,6 @@ namespace ProjektZTP.Controllers
     {
         public ActionResult Index()
         {
-            DbConnection dbConnection = DbConnection.GetDbConnection();
-            var sth = dbConnection.GetSameLetterWord("Raza");
             return View();
         }
 
