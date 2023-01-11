@@ -1,4 +1,5 @@
-﻿using ProjektZTP.Models;
+﻿using ProjektZTP.Data;
+using ProjektZTP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,6 @@ namespace ProjektZTP.Controllers
     {
         public ActionResult Index()
         {
-            ApplicationDbContext db = new ApplicationDbContext();
-            var sth = db.Words.ToList()[0];
-
             return View();
         }
 
