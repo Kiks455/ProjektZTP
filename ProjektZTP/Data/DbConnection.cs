@@ -8,14 +8,25 @@ namespace ProjektZTP.Data
 {
     public sealed class DbConnection
     {
+        #region Properties
+
         private static DbConnection _connection = new DbConnection();
         private ApplicationDbContext _context;
-        private string _languageChosen = "eng";
+        private string _languageChosen;
+
+        #endregion Properties
+
+        #region Constructors
 
         private DbConnection()
         {
             _context = new ApplicationDbContext();
+            _languageChosen = "eng";
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         public static DbConnection GetDbConnection()
         {
@@ -37,7 +48,7 @@ namespace ProjektZTP.Data
         public Word GetSameLetterWord(Word word)
         {
             Word result;
-            
+
             if (_languageChosen == "eng")
             {
                 string letter = word.WordEn[0].ToString();
@@ -119,5 +130,7 @@ namespace ProjektZTP.Data
 
             return user;
         }
+
+        #endregion Methods
     }
 }

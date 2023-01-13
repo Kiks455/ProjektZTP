@@ -11,8 +11,11 @@ namespace ProjektZTP.Controllers
     public class HomeController : Controller
     {
         private DbConnection _connection = DbConnection.GetDbConnection();
+
         public ActionResult Index()
         {
+            DbConnection con = DbConnection.GetDbConnection();
+            var sth = con.GetWords();
             return View();
         }
 
