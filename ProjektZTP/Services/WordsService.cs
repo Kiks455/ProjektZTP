@@ -1,9 +1,6 @@
 ﻿using ProjektZTP.Data;
 using ProjektZTP.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 
 namespace ProjektZTP.Services
 {
@@ -26,9 +23,9 @@ namespace ProjektZTP.Services
 
         #region Methods
 
-        public List<Word> GetWords()
+        public async Task<ReadWordsDTO> GetWords(int pageNumber, string filterValue, string filterLang)
         {
-            List<Word> result = _connection.GetWords();
+            ReadWordsDTO result = await _connection.GetWords(pageNumber, filterValue, filterLang);
 
             return result;
         }

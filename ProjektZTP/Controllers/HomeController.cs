@@ -1,9 +1,4 @@
 ﻿using ProjektZTP.Data;
-using ProjektZTP.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ProjektZTP.Controllers
@@ -14,8 +9,6 @@ namespace ProjektZTP.Controllers
 
         public ActionResult Index()
         {
-            DbConnection con = DbConnection.GetDbConnection();
-            var sth = con.GetWords();
             return View();
         }
 

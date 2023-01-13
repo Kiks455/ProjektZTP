@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace ProjektZTP.Patterns.Builder
+﻿namespace ProjektZTP.Patterns.Builder
 {
     public class AnswerDirector
     {
@@ -11,13 +6,13 @@ namespace ProjektZTP.Patterns.Builder
         {
             answerBuilder.SetCorrectAnswer();
             int quantity = GetQuantity(level);
-            for(int i = 0; i < quantity - 1; i++)
+            for (int i = 0; i < quantity - 1; i++)
             {
-                if(level == 0)
+                if (level == 0)
                 {
                     answerBuilder.SetSpecialWord();
                 }
-                else if(level == 1)
+                else if (level == 1)
                 {
                     if (i < 2)
                     {
@@ -28,6 +23,7 @@ namespace ProjektZTP.Patterns.Builder
                 }
             }
         }
+
         private int GetQuantity(int level)
         {
             int quantity;

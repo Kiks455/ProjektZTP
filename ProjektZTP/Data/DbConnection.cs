@@ -2,7 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
+using X.PagedList;
 
 namespace ProjektZTP.Data
 {
@@ -13,6 +14,7 @@ namespace ProjektZTP.Data
         private static DbConnection _connection = new DbConnection();
         private ApplicationDbContext _context;
         private string _languageChosen;
+        private int pageSize;
 
         #endregion Properties
 
@@ -22,6 +24,7 @@ namespace ProjektZTP.Data
         {
             _context = new ApplicationDbContext();
             _languageChosen = "eng";
+            pageSize = 50;
         }
 
         #endregion Constructors
@@ -79,9 +82,40 @@ namespace ProjektZTP.Data
             return result;
         }
 
-        public List<Word> GetWords()
+        public async Task<ReadWordsDTO> GetWords(int pageNumber, string filterValue, string filterLang)
         {
-            List<Word> result = _context.Words.ToList();
+            IQueryable<Word> words = _context.Words;
+
+            if (filterValue != null)
+            {
+                if (filterLang == "eng")
+                {
+                    words = words.Where(e => e.WordEn.StartsWith(filterValue));
+                }
+                else
+                {
+                    words = words.Where(e => e.WordPl.StartsWith(filterValue));
+                }
+            }
+
+            if (_languageChosen == "eng")
+            {
+                words = words.OrderBy(e => e.WordEn);
+            }
+            else
+            {
+                words = words.OrderBy(e => e.WordPl);
+            }
+
+            int count = words.Count();
+            int lastPageNumber = (int)Math.Ceiling((double)count / pageSize);
+            IEnumerable<Word> wordList = await words.ToPagedListAsync(pageNumber, pageSize);
+
+            ReadWordsDTO result = new ReadWordsDTO()
+            {
+                Words = wordList,
+                LastPageNumber = lastPageNumber
+            };
 
             return result;
         }

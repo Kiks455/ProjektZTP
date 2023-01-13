@@ -1,10 +1,7 @@
 ﻿using ProjektZTP.Data;
 using ProjektZTP.Models;
 using ProjektZTP.Patterns.Builder;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ProjektZTP.Controllers
@@ -12,6 +9,7 @@ namespace ProjektZTP.Controllers
     public class QuizController : Controller
     {
         private DbConnection db = DbConnection.GetDbConnection();
+
         // GET: Quiz
         public ActionResult Index()
         {

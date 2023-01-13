@@ -1,10 +1,7 @@
 ﻿using ProjektZTP.Data;
 using ProjektZTP.Models;
 using ProjektZTP.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace ProjektZTP.Controllers
@@ -30,11 +27,16 @@ namespace ProjektZTP.Controllers
 
         #region Methods
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index(int pageNumber, string filterValue, string filterLang)
         {
-            List<Word> words = _wordsService.GetWords();
+            ReadWordsDTO words = await _wordsService.GetWords(pageNumber, filterValue, filterLang);
 
-            return View(words);
+            ViewBag.pageNumber = pageNumber;
+            ViewBag.lastPageNumber = words.LastPageNumber;
+            ViewBag.filterValue = filterValue;
+            ViewBag.filterLang = filterLang;
+
+            return View(words.Words);
         }
 
         #endregion Methods
