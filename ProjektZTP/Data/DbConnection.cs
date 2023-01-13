@@ -34,34 +34,35 @@ namespace ProjektZTP.Data
             return result;
         }
 
-        public Word GetSameLetterWord(string word)
+        public Word GetSameLetterWord(Word word)
         {
             Word result;
-            string letter = word[0].ToString();
-
+            
             if (_languageChosen == "eng")
             {
-                result = _context.Words.FirstOrDefault(e => e.WordEn.StartsWith(letter));
+                string letter = word.WordEn[0].ToString();
+                result = _context.Words.OrderBy(e => Guid.NewGuid()).FirstOrDefault(e => e.WordEn.StartsWith(letter));
             }
             else
             {
-                result = _context.Words.FirstOrDefault(e => e.WordPl.StartsWith(letter));
+                string letter = word.WordPl[0].ToString();
+                result = _context.Words.OrderBy(e => Guid.NewGuid()).FirstOrDefault(e => e.WordPl.StartsWith(letter));
             }
 
             return result;
         }
 
-        public Word GetSameLengthWord(string word)
+        public Word GetSameLengthWord(Word word)
         {
             Word result;
 
             if (_languageChosen == "eng")
             {
-                result = _context.Words.FirstOrDefault(e => e.WordEn.Length == word.Length);
+                result = _context.Words.OrderBy(e => Guid.NewGuid()).FirstOrDefault(e => e.WordEn.Length == word.WordEn.Length);
             }
             else
             {
-                result = _context.Words.FirstOrDefault(e => e.WordPl.Length == word.Length);
+                result = _context.Words.OrderBy(e => Guid.NewGuid()).FirstOrDefault(e => e.WordPl.Length == word.WordPl.Length);
             }
 
             return result;
