@@ -80,5 +80,43 @@ namespace ProjektZTP.Data
 
             return result;
         }
+
+        public void AddWord(string engWord, string plWord)
+        {
+            Word word = new Word()
+            {
+                WordEn = engWord,
+                WordPl = plWord
+            };
+
+            _context.Words.Add(word);
+            _context.SaveChanges();
+        }
+
+        public void UpdateWord(Word word)
+        {
+            Word oldWord = _context.Words.SingleOrDefault(e => e.Id == word.Id);
+
+            if (oldWord != default)
+            {
+                _context.Entry(oldWord).CurrentValues.SetValues(word);
+                _context.SaveChanges();
+            }
+        }
+
+        public void RemoveWord(int id)
+        {
+            Word word = _context.Words.SingleOrDefault(e => e.Id == id);
+
+            _context.Words.Remove(word);
+            _context.SaveChanges();
+        }
+
+        public ApplicationUser GetUser(string id)
+        {
+            ApplicationUser user = _context.Users.SingleOrDefault(e => e.Id == id);
+
+            return user;
+        }
     }
 }
