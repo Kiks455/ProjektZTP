@@ -21,7 +21,7 @@ namespace ProjektZTP.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=aspnet-ZTPwords-20170112084104;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False", throwIfV1Schema: false)
+            : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
