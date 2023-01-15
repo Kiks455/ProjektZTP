@@ -30,6 +30,28 @@ namespace ProjektZTP.Services
             return result;
         }
 
+        public void AddWord(string engWord, string plWord)
+        {
+            _connection.AddWord(engWord, plWord);
+        }
+
+        public void UpdateWord(int id, string wordEn, string wordPl)
+        {
+            Word word = new Word()
+            {
+                Id = id,
+                WordEn = wordEn,
+                WordPl = wordPl
+            };
+
+            _connection.UpdateWord(word);
+        }
+
+        public void DeleteWord(int id)
+        {
+            _connection.RemoveWord(id);
+        }
+
         #endregion Methods
     }
 }

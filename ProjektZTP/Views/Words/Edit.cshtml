@@ -6,11 +6,10 @@
 
 <h2>Edit</h2>
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditWord", "Words", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Word</h4>
         <hr />
@@ -35,14 +34,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save changes" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to the list", "Index", new { pageNumber = 1, filterValue = "", filterLang = "" }, new { @class = "btn btn-primary" })
 </div>
 
 @section Scripts {

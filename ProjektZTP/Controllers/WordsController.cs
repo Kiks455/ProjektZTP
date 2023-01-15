@@ -39,19 +39,61 @@ namespace ProjektZTP.Controllers
             return View(words.Words);
         }
 
+        public ActionResult CreateWord(string WordEn, string WordPl)
+        {
+            if (ModelState.IsValid)
+            {
+                _wordsService.AddWord(WordEn, WordPl);
+            }
+
+            return RedirectToAction("Index", new { pageNumber = 1, filterValue = "", filterLang = "" });
+        }
+
+        public ActionResult EditWord(int id, string wordEn, string wordPl)
+        {
+            if (ModelState.IsValid)
+            {
+                _wordsService.UpdateWord(id, wordEn, wordPl);
+            }
+
+            return RedirectToAction("Index", new { pageNumber = 1, filterValue = "", filterLang = "" });
+        }
+
+        public ActionResult DeleteWord(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                _wordsService.DeleteWord(id);
+            }
+
+            return RedirectToAction("Index", new { pageNumber = 1, filterValue = "", filterLang = "" });
+        }
+
         public ActionResult Create()
         {
             return View();
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, string wordEn, string wordPl)
         {
-            return View();
+            Word word = new Word()
+            {
+                Id = id,
+                WordEn = wordEn,
+                WordPl = wordPl
+            };
+
+            return View(word);
         }
 
         public ActionResult Delete(int id)
         {
-            return View();
+            Word word = new Word()
+            {
+                Id = id
+            };
+
+            return View(word);
         }
 
         #endregion Methods

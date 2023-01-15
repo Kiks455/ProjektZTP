@@ -6,7 +6,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateWord", "Words", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -39,7 +39,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to the list", "Index", new { area = "" }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to the list", "Index", new { pageNumber = 1, filterValue = "", filterLang = "" }, new { @class = "btn btn-primary" })
 </div>
 
 @section Scripts {
