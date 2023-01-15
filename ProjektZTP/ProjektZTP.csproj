@@ -399,6 +399,10 @@
     <Compile Include="Migrations\202301111926305_init.designer.cs">
       <DependentUpon>202301111926305_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202301151954116_FieldsInWordRequired.cs" />
+    <Compile Include="Migrations\202301151954116_FieldsInWordRequired.designer.cs">
+      <DependentUpon>202301151954116_FieldsInWordRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -473,6 +477,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Quiz\Index.cshtml" />
     <Content Include="Views\Words\Index.cshtml" />
+    <Content Include="Views\Words\Delete.cshtml" />
+    <Content Include="Views\Words\Edit.cshtml" />
+    <Content Include="Views\Words\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -493,6 +500,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202301111926305_init.resx">
       <DependentUpon>202301111926305_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301151954116_FieldsInWordRequired.resx">
+      <DependentUpon>202301151954116_FieldsInWordRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
