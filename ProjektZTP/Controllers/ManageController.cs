@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using ProjektZTP.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using ProjektZTP.Models;
 
 namespace ProjektZTP.Controllers
 {
@@ -32,9 +31,9 @@ namespace ProjektZTP.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -333,7 +332,8 @@ namespace ProjektZTP.Controllers
             base.Dispose(disposing);
         }
 
-#region Pomocnicy
+        #region Pomocnicy
+
         // Używane w przypadku ochrony XSRF podczas dodawania logowań zewnętrznych
         private const string XsrfKey = "XsrfId";
 
@@ -384,6 +384,6 @@ namespace ProjektZTP.Controllers
             Error
         }
 
-#endregion
+        #endregion Pomocnicy
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // Informacje ogólne o zestawie zależą od poniższego
@@ -32,4 +31,4 @@ using System.Runtime.InteropServices;
 // Możesz określić wszystkie te wartości lub użyć wartości domyślnych numerów kompilacji i poprawki,
 // stosując znak „*”, jak pokazano poniżej:
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")] 

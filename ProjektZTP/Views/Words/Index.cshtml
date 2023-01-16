@@ -1,0 +1,97 @@
+﻿@model IEnumerable<ProjektZTP.Models.Word>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Word list</h2>
+
+<p class="my-2">
+    @Html.ActionLink("Create a new word", "Create", "Words", new { area = "" }, new { @class = "btn btn-primary" })
+</p>
+<br />
+<br />
+
+<div style="width:100%">
+    <div style="float:left;">
+        @using (Html.BeginForm("Index", "Words", FormMethod.Post))
+        {
+            <label for="engFilterValue">Find the English word you are looking for</label>
+            <input name="filterValue" id="engFilterValue" style="width:50%" />
+            <input type="hidden" name="pageNumber" value=1 />
+            <input type="hidden" name="filterLang" value="eng" />
+
+            <button class="btn btn-primary" type="submit">Filter results</button>
+        }
+    </div>
+    <div style="float:right">
+        @using (Html.BeginForm("Index", "Words", FormMethod.Post))
+        {
+            <label for="plFilterValue">Find the Polish word you are looking for</label>
+            <input name="filterValue" id="plFilterValue" style="width:50%" />
+            <input type="hidden" name="pageNumber" value=1 />
+            <input type="hidden" name="filterLang" value="pl" />
+
+            <button class="btn btn-primary" type="submit">Filter results</button>
+        }
+    </div>
+</div>
+
+<br style="clear: both;" />
+<br />
+
+<div class="text-center" style="margin-top:2vh">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.WordEn)
+                </th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.WordPl)
+                </th>
+                <th class="text-center">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WordEn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WordPl)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id, wordEn = item.WordEn, wordPl = item.WordPl }, new { @class = "btn btn-success" })&nbsp;
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="text-center">
+    @if (ViewBag.pageNumber == 1)
+    {
+        <button class="btn btn-primary" disabled>&#10094;&#9866;</button>
+    }
+    else
+    {
+        @Html.ActionLink("<-", "Index", "Words", new { pageNumber = (ViewBag.pageNumber - 1), filterValue = ViewBag.filterValue, filterLang = ViewBag.filterLang }, new { @class = "btn btn-primary" })
+    }
+
+    @ViewBag.pageNumber out of @ViewBag.lastPageNumber
+
+    @if (ViewBag.pageNumber == ViewBag.lastPageNumber)
+    {
+        <button class="btn btn-primary" disabled>&#9866;&#10095;</button>
+    }
+    else
+    {
+        @Html.ActionLink("->", "Index", "Words", new { pageNumber = (ViewBag.pageNumber + 1), filterValue = ViewBag.filterValue, filterLang = ViewBag.filterLang }, new { @class = "btn btn-primary" })
+    }
+</div>

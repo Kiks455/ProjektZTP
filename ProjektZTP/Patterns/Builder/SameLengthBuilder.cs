@@ -1,9 +1,6 @@
 ﻿using ProjektZTP.Data;
 using ProjektZTP.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace ProjektZTP.Patterns.Builder
 {
@@ -18,6 +15,7 @@ namespace ProjektZTP.Patterns.Builder
             words = new List<Word>();
             this.correctAnswer = correctAnswer;
         }
+
         public void SetRandWord()
         {
             Word word = null;

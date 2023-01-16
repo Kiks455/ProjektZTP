@@ -2,20 +2,34 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
+using X.PagedList;
 
 namespace ProjektZTP.Data
 {
     public sealed class DbConnection
     {
+        #region Properties
+
         private static DbConnection _connection = new DbConnection();
         private ApplicationDbContext _context;
-        private string _languageChosen = "eng";
+        private string _languageChosen;
+        private int pageSize;
+
+        #endregion Properties
+
+        #region Constructors
 
         private DbConnection()
         {
             _context = new ApplicationDbContext();
+            _languageChosen = "eng";
+            pageSize = 50;
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         public static DbConnection GetDbConnection()
         {
@@ -37,7 +51,7 @@ namespace ProjektZTP.Data
         public Word GetSameLetterWord(Word word)
         {
             Word result;
-            
+
             if (_languageChosen == "eng")
             {
                 string letter = word.WordEn[0].ToString();
@@ -68,9 +82,40 @@ namespace ProjektZTP.Data
             return result;
         }
 
-        public List<Word> GetWords()
+        public async Task<ReadWordsDTO> GetWords(int pageNumber, string filterValue, string filterLang)
         {
-            List<Word> result = _context.Words.ToList();
+            IQueryable<Word> words = _context.Words;
+
+            if (filterValue != null)
+            {
+                if (filterLang == "eng")
+                {
+                    words = words.Where(e => e.WordEn.StartsWith(filterValue));
+                }
+                else
+                {
+                    words = words.Where(e => e.WordPl.StartsWith(filterValue));
+                }
+            }
+
+            if (_languageChosen == "eng")
+            {
+                words = words.OrderBy(e => e.WordEn);
+            }
+            else
+            {
+                words = words.OrderBy(e => e.WordPl);
+            }
+
+            int count = words.Count();
+            int lastPageNumber = (int)Math.Ceiling((double)count / pageSize);
+            IEnumerable<Word> wordList = await words.ToPagedListAsync(pageNumber, pageSize);
+
+            ReadWordsDTO result = new ReadWordsDTO()
+            {
+                Words = wordList,
+                LastPageNumber = lastPageNumber
+            };
 
             return result;
         }
@@ -81,5 +126,56 @@ namespace ProjektZTP.Data
 
             return result;
         }
+
+        public void AddWord(string engWord, string plWord)
+        {
+            Word word = new Word()
+            {
+                WordEn = engWord,
+                WordPl = plWord
+            };
+
+            _context.Words.Add(word);
+            _context.SaveChanges();
+        }
+
+        public void UpdateWord(Word word)
+        {
+            Word oldWord = _context.Words.SingleOrDefault(e => e.Id == word.Id);
+
+            if (oldWord != default)
+            {
+                _context.Entry(oldWord).CurrentValues.SetValues(word);
+                _context.SaveChanges();
+            }
+        }
+
+        public void RemoveWord(int id)
+        {
+            Word word = _context.Words.SingleOrDefault(e => e.Id == id);
+
+            _context.Words.Remove(word);
+            _context.SaveChanges();
+        }
+
+        public ApplicationUser GetUser(string id)
+        {
+            ApplicationUser user = _context.Users.SingleOrDefault(e => e.Id == id);
+
+            return user;
+        }
+
+        public void SetUserScore(string id, int newScore)
+        {
+            ApplicationUser user = _context.Users.SingleOrDefault(e => e.Id == id);
+
+            if (user != default)
+            {
+                _context.Entry(user).CurrentValues["Score"] = newScore;
+                _context.SaveChanges();
+            }
+        }
+
+        #endregion Methods
     }
 }

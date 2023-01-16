@@ -1,0 +1,23 @@
+﻿@model ProjektZTP.Models.Word
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+
+    @using (Html.BeginForm("DeleteWord", "Words", FormMethod.Get))
+    {
+        <input name="id" type="hidden" value="@Model.Id" />
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("No", "Index", new { pageNumber = 1, filterValue = "", filterLang = "" }, new { @class = "btn btn-danger" })
+            <input type="submit" value="Yes" class="btn btn-success" />
+        </div>
+    }
+</div>

@@ -15,11 +15,11 @@
             [
             @if (Model.HasPassword)
             {
-                @Html.ActionLink("Zmień hasło", "ChangePassword")
+            @Html.ActionLink("Zmień hasło", "ChangePassword")
             }
             else
             {
-                @Html.ActionLink("Utwórz", "SetPassword")
+            @Html.ActionLink("Utwórz", "SetPassword")
             }
             ]
         </dd>
@@ -30,13 +30,13 @@
         </dd>
         @*
             Numery telefonów mogą być używane jako drugi składnik w systemach uwierzytelniania dwuskładnikowego.
-             
+
              Zobacz <a href="https://go.microsoft.com/fwlink/?LinkId=403804">ten artykuł</a>,
                         aby uzyskać szczegółowe informacje na temat konfigurowania tej aplikacji ASP.NET pod kątem obsługi uwierzytelniania dwuskładnikowego przy użyciu wiadomości SMS.
-             
+
              Usuń komentarz z następującego bloku po skonfigurowaniu uwierzytelniania dwuskładnikowego
         *@
-        @*  
+        @*
             <dt>Numer telefonu:</dt>
             <dd>
                 @(Model.PhoneNumber ?? "None")

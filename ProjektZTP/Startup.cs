@@ -2,6 +2,7 @@
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(ProjektZTP.Startup))]
+
 namespace ProjektZTP
 {
     public partial class Startup
