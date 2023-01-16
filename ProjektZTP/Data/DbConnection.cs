@@ -165,6 +165,17 @@ namespace ProjektZTP.Data
             return user;
         }
 
+        public void SetUserScore(string id, int newScore)
+        {
+            ApplicationUser user = _context.Users.SingleOrDefault(e => e.Id == id);
+
+            if (user != default)
+            {
+                _context.Entry(user).CurrentValues["Score"] = newScore;
+                _context.SaveChanges();
+            }
+        }
+
         #endregion Methods
     }
 }

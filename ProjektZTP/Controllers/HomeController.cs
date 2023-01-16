@@ -1,12 +1,9 @@
-﻿using ProjektZTP.Data;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace ProjektZTP.Controllers
 {
     public class HomeController : Controller
     {
-        private DbConnection _connection = DbConnection.GetDbConnection();
-
         public ActionResult Index()
         {
             return View();
