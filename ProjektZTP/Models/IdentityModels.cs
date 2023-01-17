@@ -11,6 +11,8 @@ namespace ProjektZTP.Models
     {
         public int Score { get; set; }
 
+        public int Level { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Element authenticationType musi pasować do elementu zdefiniowanego w elemencie CookieAuthenticationOptions.AuthenticationType
