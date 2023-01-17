@@ -153,6 +153,8 @@ namespace ProjektZTP.Patterns.Iterator
 
         public bool IsDone()
         {
+            //tu będzie jeszcze po stanie jak będzie 
+
             if (Questions.Count == 10)
             {
                 return true;
