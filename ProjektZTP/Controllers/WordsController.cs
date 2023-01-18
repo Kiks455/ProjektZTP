@@ -10,8 +10,8 @@ namespace ProjektZTP.Controllers
     {
         #region Properties
 
-        private DbConnection _connection;
-        private WordsService _wordsService;
+        private readonly DbConnection _connection;
+        private readonly WordsService _wordsService;
 
         #endregion Properties
 

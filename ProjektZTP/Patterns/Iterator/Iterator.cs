@@ -1,10 +1,9 @@
-﻿using System;
+﻿using ProjektZTP.Data;
+using ProjektZTP.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Troschuetz.Random;
-using ProjektZTP.Data;
-using ProjektZTP.Models;
 using static ProjektZTP.Models.QuestionViewModels;
 
 namespace ProjektZTP.Patterns.Iterator
@@ -16,6 +15,7 @@ namespace ProjektZTP.Patterns.Iterator
         private TRandom random;
         private Word word;
         private string mode;
+
         public QuestionModel First()
         {
             return Questions[0];
@@ -47,23 +47,25 @@ namespace ProjektZTP.Patterns.Iterator
                                 continue;
                             }
                             break;
+
                         case "medium":
                             if (!CheckForMedium())
                             {
                                 continue;
                             }
                             break;
+
                         case "hard":
                             if (!CheckForHard())
                             {
                                 continue;
                             }
                             break;
+
                         default:
                             break;
                     }
                 }
-
 
                 if (Questions.All(q => q.Word.Id != word.Id))
                 {
@@ -75,7 +77,7 @@ namespace ProjektZTP.Patterns.Iterator
         private string CheckLevel()
         {
             var username = HttpContext.Current.User.Identity.Name;
-            var user = db.GetUser(username);
+            var user = db.GetUserByEmail(username);
             var level = user.Level;
             if (level < 5)
             {
@@ -86,14 +88,12 @@ namespace ProjektZTP.Patterns.Iterator
                 return "medium";
             }
             return "hard";
-
         }
 
         private bool CheckForEasy()
         {
             if (mode == "pl")
             {
-
                 if (word.WordEn.Length < 6)
                 {
                     return true;
@@ -111,10 +111,8 @@ namespace ProjektZTP.Patterns.Iterator
 
         private bool CheckForMedium()
         {
-
             if (mode == "Eng")
             {
-
                 if (word.WordEn.Length > 6 && word.WordEn.Length < 12)
                 {
                     return true;
@@ -132,10 +130,8 @@ namespace ProjektZTP.Patterns.Iterator
 
         private bool CheckForHard()
         {
-
             if (mode == "Eng")
             {
-
                 if (word.WordEn.Length > 10)
                 {
                     return true;
@@ -153,7 +149,7 @@ namespace ProjektZTP.Patterns.Iterator
 
         public bool IsDone()
         {
-            //tu będzie jeszcze po stanie jak będzie 
+            //tu będzie jeszcze po stanie jak będzie
 
             if (Questions.Count == 10)
             {
@@ -166,6 +162,5 @@ namespace ProjektZTP.Patterns.Iterator
         {
             return Questions[Questions.Count - 1];
         }
-
     }
 }

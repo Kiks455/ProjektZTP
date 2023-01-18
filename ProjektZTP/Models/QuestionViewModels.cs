@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ProjektZTP.Models
 {
@@ -33,6 +29,5 @@ namespace ProjektZTP.Models
             public string Mode { get; set; }
             public string Lang { get; set; }
         }
-
     }
 }

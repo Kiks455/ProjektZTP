@@ -16,23 +16,23 @@
     <div style="float:left;">
         @using (Html.BeginForm("Index", "Words", FormMethod.Post))
         {
-            <label for="engFilterValue">Find the English word you are looking for</label>
-            <input name="filterValue" id="engFilterValue" style="width:50%" />
-            <input type="hidden" name="pageNumber" value=1 />
-            <input type="hidden" name="filterLang" value="eng" />
+        <label for="engFilterValue">Find the English word you are looking for</label>
+        <input name="filterValue" id="engFilterValue" style="width:50%" />
+        <input type="hidden" name="pageNumber" value=1 />
+        <input type="hidden" name="filterLang" value="eng" />
 
-            <button class="btn btn-primary" type="submit">Filter results</button>
+        <button class="btn btn-primary" type="submit">Filter results</button>
         }
     </div>
     <div style="float:right">
         @using (Html.BeginForm("Index", "Words", FormMethod.Post))
         {
-            <label for="plFilterValue">Find the Polish word you are looking for</label>
-            <input name="filterValue" id="plFilterValue" style="width:50%" />
-            <input type="hidden" name="pageNumber" value=1 />
-            <input type="hidden" name="filterLang" value="pl" />
+        <label for="plFilterValue">Find the Polish word you are looking for</label>
+        <input name="filterValue" id="plFilterValue" style="width:50%" />
+        <input type="hidden" name="pageNumber" value=1 />
+        <input type="hidden" name="filterLang" value="pl" />
 
-            <button class="btn btn-primary" type="submit">Filter results</button>
+        <button class="btn btn-primary" type="submit">Filter results</button>
         }
     </div>
 </div>
@@ -58,18 +58,18 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.WordEn)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.WordPl)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id, wordEn = item.WordEn, wordPl = item.WordPl }, new { @class = "btn btn-success" })&nbsp;
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WordEn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WordPl)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id, wordEn = item.WordEn, wordPl = item.WordPl }, new { @class = "btn btn-success" })&nbsp;
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
             }
         </tbody>
     </table>
@@ -77,21 +77,21 @@
 <div class="text-center">
     @if (ViewBag.pageNumber == 1)
     {
-        <button class="btn btn-primary" disabled>&#10094;&#9866;</button>
+    <button class="btn btn-primary" disabled>&#10094;&#9866;</button>
     }
     else
     {
-        @Html.ActionLink("<-", "Index", "Words", new { pageNumber = (ViewBag.pageNumber - 1), filterValue = ViewBag.filterValue, filterLang = ViewBag.filterLang }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("<-", "Index", "Words", new { pageNumber = (ViewBag.pageNumber - 1), filterValue = ViewBag.filterValue, filterLang = ViewBag.filterLang }, new { @class = "btn btn-primary" })
     }
 
     @ViewBag.pageNumber out of @ViewBag.lastPageNumber
 
     @if (ViewBag.pageNumber == ViewBag.lastPageNumber)
     {
-        <button class="btn btn-primary" disabled>&#9866;&#10095;</button>
+    <button class="btn btn-primary" disabled>&#9866;&#10095;</button>
     }
     else
     {
-        @Html.ActionLink("->", "Index", "Words", new { pageNumber = (ViewBag.pageNumber + 1), filterValue = ViewBag.filterValue, filterLang = ViewBag.filterLang }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("->", "Index", "Words", new { pageNumber = (ViewBag.pageNumber + 1), filterValue = ViewBag.filterValue, filterLang = ViewBag.filterLang }, new { @class = "btn btn-primary" })
     }
 </div>

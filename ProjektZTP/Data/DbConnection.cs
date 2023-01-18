@@ -13,7 +13,6 @@ namespace ProjektZTP.Data
 
         private static DbConnection _connection = new DbConnection();
         private ApplicationDbContext _context;
-        private string _languageChosen;
         private int pageSize;
 
         #endregion Properties
@@ -23,7 +22,6 @@ namespace ProjektZTP.Data
         private DbConnection()
         {
             _context = new ApplicationDbContext();
-            _languageChosen = "eng";
             pageSize = 50;
         }
 
@@ -52,7 +50,9 @@ namespace ProjektZTP.Data
         {
             Word result;
 
-            if (_languageChosen == "eng")
+            string languageChosen = (string)System.Web.HttpContext.Current.Session["lang"];
+
+            if (languageChosen == "eng")
             {
                 string letter = word.WordEn[0].ToString();
                 result = _context.Words.OrderBy(e => Guid.NewGuid()).FirstOrDefault(e => e.WordEn.StartsWith(letter));
@@ -70,7 +70,9 @@ namespace ProjektZTP.Data
         {
             Word result;
 
-            if (_languageChosen == "eng")
+            string languageChosen = (string)System.Web.HttpContext.Current.Session["lang"];
+
+            if (languageChosen == "eng")
             {
                 result = _context.Words.OrderBy(e => Guid.NewGuid()).FirstOrDefault(e => e.WordEn.Length == word.WordEn.Length);
             }
@@ -86,6 +88,8 @@ namespace ProjektZTP.Data
         {
             IQueryable<Word> words = _context.Words;
 
+            string languageChosen = (string)System.Web.HttpContext.Current.Session["lang"];
+
             if (filterValue != null)
             {
                 if (filterLang == "eng")
@@ -98,7 +102,7 @@ namespace ProjektZTP.Data
                 }
             }
 
-            if (_languageChosen == "eng")
+            if (languageChosen == "eng")
             {
                 words = words.OrderBy(e => e.WordEn);
             }
@@ -158,9 +162,16 @@ namespace ProjektZTP.Data
             _context.SaveChanges();
         }
 
-        public ApplicationUser GetUser(string id)
+        public ApplicationUser GetUserById(string id)
         {
             ApplicationUser user = _context.Users.SingleOrDefault(e => e.Id == id);
+
+            return user;
+        }
+
+        public ApplicationUser GetUserByEmail(string email)
+        {
+            ApplicationUser user = _context.Users.SingleOrDefault(e => e.Email == email);
 
             return user;
         }
@@ -172,6 +183,17 @@ namespace ProjektZTP.Data
             if (user != default)
             {
                 _context.Entry(user).CurrentValues["Score"] = newScore;
+                _context.SaveChanges();
+            }
+        }
+
+        public void SetUserLang(string email, string lang)
+        {
+            ApplicationUser user = _context.Users.SingleOrDefault(e => e.Email == email);
+
+            if (user != default)
+            {
+                _context.Entry(user).CurrentValues["Lang"] = lang;
                 _context.SaveChanges();
             }
         }

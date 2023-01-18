@@ -8,7 +8,7 @@ namespace ProjektZTP.Services
     {
         #region Properties
 
-        private DbConnection _connection;
+        private readonly DbConnection _connection;
 
         #endregion Properties
 

@@ -76,7 +76,13 @@ namespace ProjektZTP.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+                        ApplicationUser user = await UserManager.FindAsync(model.Email, model.Password);
+
+                        Session["lang"] = user.Lang;
+
+                        return RedirectToLocal(returnUrl);
+                    }
 
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -153,7 +159,7 @@ namespace ProjektZTP.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Score = 0 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -165,7 +171,7 @@ namespace ProjektZTP.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Potwierdź konto", "Potwierdź konto, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Lang");
                 }
                 AddErrors(result);
             }

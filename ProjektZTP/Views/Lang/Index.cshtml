@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="text-center">
+    @using (Html.BeginForm("ChooseLanguage", "Lang", FormMethod.Post))
+    {
+        <label for="lang">Choose the language you want to learn</label><br />
+        <select name="lang" id="lang">
+            <option value="pl">English->Polish</option>
+            <option value="eng" selected>Polish->English</option>
+        </select><br /><br />
+
+        <button type="submit" class="btn btn-primary">Save my choice</button>
+    }
+</div>
