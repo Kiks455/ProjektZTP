@@ -421,7 +421,7 @@
     <Compile Include="Migrations\202301181333097_AddLangToUser.cs" />
     <Compile Include="Migrations\202301181333097_AddLangToUser.designer.cs">
       <DependentUpon>202301181333097_AddLangToUser.cs</DependentUpon>
-      </Compile>
+    </Compile>
     <Compile Include="Migrations\202301181332410_AddLevelToUser.cs" />
     <Compile Include="Migrations\202301181332410_AddLevelToUser.designer.cs">
       <DependentUpon>202301181332410_AddLevelToUser.cs</DependentUpon>
@@ -439,6 +439,10 @@
     <Compile Include="Patterns\Builder\SameLetterBuilder.cs" />
     <Compile Include="Patterns\Iterator\InterfaceIterator.cs" />
     <Compile Include="Patterns\Iterator\Iterator.cs" />
+    <Compile Include="Patterns\State\Context.cs" />
+    <Compile Include="Patterns\State\LearningState.cs" />
+    <Compile Include="Patterns\State\State.cs" />
+    <Compile Include="Patterns\State\TestState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\LangService.cs" />
     <Compile Include="Services\WordsService.cs" />
@@ -537,7 +541,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301181333097_AddLangToUser.resx">
       <DependentUpon>202301181333097_AddLangToUser.cs</DependentUpon>
-      </EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301181332410_AddLevelToUser.resx">
       <DependentUpon>202301181332410_AddLevelToUser.cs</DependentUpon>
     </EmbeddedResource>
