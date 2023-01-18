@@ -10,16 +10,16 @@
             {
                 if (level == 0)
                 {
-                    answerBuilder.SetSpecialWord();
+                    answerBuilder.FetchSpecialWord();
                 }
                 else if (level == 1)
                 {
                     if (i < 2)
                     {
-                        answerBuilder.SetSpecialWord();
+                        answerBuilder.FetchSpecialWord();
                     }
                     else
-                        answerBuilder.SetRandWord();
+                        answerBuilder.FetchRandWord();
                 }
             }
         }
