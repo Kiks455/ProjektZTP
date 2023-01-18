@@ -24,7 +24,10 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Informacje", "About", "Home")</li>
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Words", "Index", "Words", new { pageNumber = 1, filterValue = "", filterLang = "" }, new { @class = "" })</li>
+                    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Words", "Index", "Words", new { pageNumber = 1, filterValue = "", filterLang = "" }, new { @class = "" })</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

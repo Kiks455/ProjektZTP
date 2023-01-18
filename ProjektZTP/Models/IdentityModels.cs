@@ -12,6 +12,7 @@ namespace ProjektZTP.Models
         public int Score { get; set; }
 
         public int Level { get; set; }
+        public string Lang { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
