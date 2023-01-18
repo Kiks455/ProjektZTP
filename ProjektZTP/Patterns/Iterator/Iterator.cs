@@ -12,11 +12,15 @@ namespace ProjektZTP.Patterns.Iterator
 {
     public class Iterator : InterfaceIterator
     {
-        private DbConnection db = DbConnection.GetDbConnection();
+        private DbConnection db;
         public List<QuestionModel> Questions;
         private TRandom random;
         private Word word;
         private string mode;
+        public Iterator(DbConnection connection)
+        {
+            db = connection;
+        }
 
         public QuestionModel First()
         {
