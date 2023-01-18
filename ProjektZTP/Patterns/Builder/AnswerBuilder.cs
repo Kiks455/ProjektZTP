@@ -5,11 +5,11 @@ namespace ProjektZTP.Patterns.Builder
 {
     public interface AnswerBuilder
     {
-        void SetRandWord();
+        void FetchRandWord();
 
         void SetCorrectAnswer();
 
-        void SetSpecialWord();
+        void FetchSpecialWord();
 
         List<Word> GetResult();
     }

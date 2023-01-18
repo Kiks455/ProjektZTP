@@ -15,7 +15,7 @@ namespace ProjektZTP.Controllers
         {
             Word question = db.GetRandomWord();
 
-            AnswerBuilder builder = new SameLengthBuilder(question);
+            AnswerBuilder builder = new SameLengthBuilder(question, db);
 
             AnswerDirector director = new AnswerDirector();
             director.Construct(builder, 0);

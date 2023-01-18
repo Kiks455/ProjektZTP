@@ -10,13 +10,14 @@ namespace ProjektZTP.Patterns.Builder
         private Word correctAnswer;
         private DbConnection db = DbConnection.GetDbConnection();
 
-        public SameLetterBuilder(Word correctAnswer)
+        public SameLetterBuilder(Word correctAnswer, DbConnection connection)
         {
             words = new List<Word>();
+            db = connection;
             this.correctAnswer = correctAnswer;
         }
 
-        public void SetRandWord()
+        public void FetchRandWord()
         {
             Word word = null;
             do
@@ -31,7 +32,7 @@ namespace ProjektZTP.Patterns.Builder
             words.Add(correctAnswer);
         }
 
-        public void SetSpecialWord()
+        public void FetchSpecialWord()
         {
             Word word = null;
             do
