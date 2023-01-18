@@ -1,10 +1,12 @@
 ﻿using ProjektZTP.Data;
 using ProjektZTP.Models;
+using ProjektZTP.Patterns.State;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Troschuetz.Random;
 using static ProjektZTP.Models.QuestionViewModels;
+
 
 namespace ProjektZTP.Patterns.Iterator
 {
@@ -29,7 +31,7 @@ namespace ProjektZTP.Patterns.Iterator
             }
             while (true)
             {
-                int id = random.Next(0, 66366);
+                int id = random.Next(0, 59225);
                 word = db.GetWord(id);
                 mode = (string)System.Web.HttpContext.Current.Session["lang"];
                 string level = (string)System.Web.HttpContext.Current.Session["difficulty"];
@@ -149,7 +151,12 @@ namespace ProjektZTP.Patterns.Iterator
 
         public bool IsDone()
         {
-            //tu będzie jeszcze po stanie jak będzie
+            var type = (Context)HttpContext.Current.Session["mode"];
+            State.State state = type.GetState();
+            if (state is LearningState) 
+            {
+                return false;
+            }
 
             if (Questions.Count == 10)
             {
