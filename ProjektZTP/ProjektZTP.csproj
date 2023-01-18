@@ -417,6 +417,10 @@
     <Compile Include="Migrations\202301161426136_AddedScoreToUser.designer.cs">
       <DependentUpon>202301161426136_AddedScoreToUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202301181332410_AddLevelToUser.cs" />
+    <Compile Include="Migrations\202301181332410_AddLevelToUser.designer.cs">
+      <DependentUpon>202301181332410_AddLevelToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -523,6 +527,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301161426136_AddedScoreToUser.resx">
       <DependentUpon>202301161426136_AddedScoreToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301181332410_AddLevelToUser.resx">
+      <DependentUpon>202301181332410_AddLevelToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
