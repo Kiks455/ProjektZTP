@@ -26,6 +26,7 @@
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                     @if (HttpContext.Current.User.Identity.IsAuthenticated)
                     {
+                        <li>@Html.ActionLink("Language", "Index", "Lang")</li>
                         <li>@Html.ActionLink("Words", "Index", "Words", new { pageNumber = 1, filterValue = "", filterLang = "" }, new { @class = "" })</li>
                     }
                 </ul>
