@@ -187,6 +187,41 @@ namespace ProjektZTP.Data
             }
         }
 
+        public int GetUserScore(string id)
+        {
+            ApplicationUser user = _context.Users.SingleOrDefault(e => e.Id == id);
+
+            if (user != default)
+            {
+                return user.Score;
+            }
+
+            return 0;
+        }
+
+        public void SetUserLevel(string id, int newLevel)
+        {
+            ApplicationUser user = _context.Users.SingleOrDefault(e => e.Id == id);
+
+            if (user != default)
+            {
+                _context.Entry(user).CurrentValues["Level"] = newLevel;
+                _context.SaveChanges();
+            }
+        }
+
+        public int GetUserLevel(string id)
+        {
+            ApplicationUser user = _context.Users.SingleOrDefault(e => e.Id == id);
+
+            if (user != default)
+            {
+                return user.Level;
+            }
+
+            return 0;
+        }
+
         public void SetUserLang(string email, string lang)
         {
             ApplicationUser user = _context.Users.SingleOrDefault(e => e.Email == email);

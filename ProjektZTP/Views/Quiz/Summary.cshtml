@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Summary";
+}
+
+<h2>Summary</h2>
+
+<h2 style="text-align: center">You earned:</h2>
+<h1 style="text-align: center; color: red">@ViewBag.Points points</h1>
+<h2 style="text-align: center">out of @ViewBag.MaxPoints</h2>
+
+@{
+    var percent = (@ViewBag.Points * 100) / @ViewBag.MaxPoints;
+    percent = Math.Round(percent);
+
+    <div class="progress">
+        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@ViewBag.Points" aria-valuemin="0" aria-valuemax="@ViewBag.MaxPoints" style="width: @percent%">
+            @ViewBag.Points points
+        </div>
+    </div>
+}
+<h2 style="text-align: center">You are now on level @ViewBag.Level</h2>
+
+<h2 style="text-align: center">with @ViewBag.userPoints points!</h2>
+
+@{
+    var percentLvl = (@ViewBag.userPoints * 100) / @ViewBag.MaxPoints;
+    percentLvl = Math.Round(percentLvl);
+
+    <div class="progress">
+        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@ViewBag.userPoints" aria-valuemin="0" aria-valuemax="@ViewBag.MaxLvlPoints" style="width: @percentLvl%">
+            @ViewBag.userPoints
+        </div>
+    </div>
+}
+@Html.ActionLink("Main Page", "Index", "Home", null, new { @class = "btn btn-default btn-block" })
+

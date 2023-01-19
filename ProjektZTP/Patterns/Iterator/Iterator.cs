@@ -16,10 +16,12 @@ namespace ProjektZTP.Patterns.Iterator
         public List<QuestionModel> Questions;
         private TRandom random;
         private Word word;
-        private string mode;
-        public Iterator(DbConnection connection)
+        private string _language;
+        private string _level;
+        public Iterator(DbConnection connection, string level)
         {
             db = connection;
+            _level = level;
         }
 
         public QuestionModel First()
@@ -35,43 +37,38 @@ namespace ProjektZTP.Patterns.Iterator
             }
             while (true)
             {
-                int id = random.Next(0, 59225);
+                int id = random.Next(0, 59224);
                 word = db.GetWord(id);
-                mode = (string)System.Web.HttpContext.Current.Session["lang"];
-                string level = (string)System.Web.HttpContext.Current.Session["difficulty"];
-                if (level != null)
+
+                _language = (string)System.Web.HttpContext.Current.Session["lang"];
+
+                switch (_level)
                 {
-                    if (level == "continious")
-                    {
-                        level = CheckLevel();
-                    }
-                    switch (level)
-                    {
-                        case "easy":
-                            if (!CheckForEasy())
-                            {
-                                continue;
-                            }
-                            break;
+                    case "easy":
+                        if (!CheckForEasy())
+                        {
+                            continue;
+                        }
+                        break;
 
-                        case "medium":
-                            if (!CheckForMedium())
-                            {
-                                continue;
-                            }
-                            break;
+                    case "medium":
+                        if (!CheckForMedium())
+                        {
+                            continue;
+                        }
+                        break;
 
-                        case "hard":
-                            if (!CheckForHard())
-                            {
-                                continue;
-                            }
-                            break;
+                    case "hard":
+                        if (!CheckForHard())
+                        {
+                            continue;
+                        }
+                        break;
 
-                        default:
-                            break;
-                    }
+                    default:
+                        break;
                 }
+
 
                 if (Questions.All(q => q.Word.Id != word.Id))
                 {
@@ -80,25 +77,9 @@ namespace ProjektZTP.Patterns.Iterator
             }
         }
 
-        private string CheckLevel()
-        {
-            var username = HttpContext.Current.User.Identity.Name;
-            var user = db.GetUserByEmail(username);
-            var level = user.Level;
-            if (level < 5)
-            {
-                return "easy";
-            }
-            if (level < 10)
-            {
-                return "medium";
-            }
-            return "hard";
-        }
-
         private bool CheckForEasy()
         {
-            if (mode == "pl")
+            if (_language == "pl")
             {
                 if (word.WordEn.Length < 6)
                 {
@@ -117,7 +98,7 @@ namespace ProjektZTP.Patterns.Iterator
 
         private bool CheckForMedium()
         {
-            if (mode == "Eng")
+            if (_language == "Eng")
             {
                 if (word.WordEn.Length > 6 && word.WordEn.Length < 12)
                 {
@@ -136,7 +117,7 @@ namespace ProjektZTP.Patterns.Iterator
 
         private bool CheckForHard()
         {
-            if (mode == "Eng")
+            if (_language == "Eng")
             {
                 if (word.WordEn.Length > 10)
                 {
@@ -155,17 +136,11 @@ namespace ProjektZTP.Patterns.Iterator
 
         public bool IsDone()
         {
-            var type = (Context)HttpContext.Current.Session["mode"];
-            State.State state = type.GetState();
-            if (state is LearningState) 
-            {
-                return false;
-            }
-
             if (Questions.Count == 10)
             {
                 return true;
             }
+
             return false;
         }
 

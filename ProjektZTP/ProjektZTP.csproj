@@ -439,6 +439,7 @@
     <Compile Include="Patterns\Builder\SameLetterBuilder.cs" />
     <Compile Include="Patterns\Iterator\InterfaceIterator.cs" />
     <Compile Include="Patterns\Iterator\Iterator.cs" />
+    <Compile Include="Patterns\QuestionConnector.cs" />
     <Compile Include="Patterns\State\Context.cs" />
     <Compile Include="Patterns\State\LearningState.cs" />
     <Compile Include="Patterns\State\State.cs" />
@@ -512,6 +513,10 @@
     <Content Include="Views\Words\Edit.cshtml" />
     <Content Include="Views\Words\Create.cshtml" />
     <Content Include="Views\Lang\Index.cshtml" />
+    <Content Include="Views\Quiz\Question.cshtml" />
+    <Content Include="Views\Quiz\SelectDifficulty.cshtml" />
+    <Content Include="Views\Quiz\QuestionHard.cshtml" />
+    <Content Include="Views\Quiz\Summary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
