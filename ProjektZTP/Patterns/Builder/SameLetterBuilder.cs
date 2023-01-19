@@ -8,7 +8,7 @@ namespace ProjektZTP.Patterns.Builder
     {
         private List<Word> words;
         private Word correctAnswer;
-        private DbConnection db = DbConnection.GetDbConnection();
+        private DbConnection db;
 
         public SameLetterBuilder(Word correctAnswer, DbConnection connection)
         {
