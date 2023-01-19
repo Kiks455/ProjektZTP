@@ -1,0 +1,93 @@
+﻿@model ProjektZTP.Models.QuestionViewModels.AnsweredQuestionModel
+
+@{
+    ViewBag.Title = "Test";
+}
+
+@if (Model.Mode == "learning")
+{
+    <h2 style="text-align: center">Question @Model.QuestionNumber</h2>
+}
+else
+{
+    <h2 style="text-align: center">Question @Model.QuestionNumber/10</h2>
+}
+
+
+@if (ViewBag.Message != null)
+{
+    <h2 style="color: red; text-align: center;">@ViewBag.Message</h2>
+}
+
+@using (Html.BeginForm("Question", "Quiz", FormMethod.Post))
+{
+    <div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @if (Model.Lang == "pl")
+                {
+                    @Html.Raw("Select the word that corresponds to: " + @Model.Word.WordEn);
+                }
+                else
+                {
+                    @Html.Raw("Podaj słowo odpowiadające słowu: " + @Model.Word.WordPl);
+                }
+
+            </div>
+        </div>
+        @{
+            int i = 0;
+        }
+
+        @foreach (var answer in Model.Answers)
+        {
+            <div class="panel-group">
+                <a class="answerpanel">
+                    <div class="panel panel-default answerpanelbody" id=@i>
+                        <div class="panel-body">
+                            @if (Model.Lang == "pl")
+                            {
+                                @Html.Raw(answer.WordPl)
+                            }
+                            else
+                            {
+                                @Html.Raw(answer.WordEn)
+                            }
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {
+                i++;
+            }
+        }
+    </div>
+    @Html.HiddenFor(model => model.Word.Id)
+    @Html.HiddenFor(model => model.Word.WordEn)
+    @Html.HiddenFor(model => model.Word.WordPl)
+    @Html.HiddenFor(model => model.QuestionNumber)
+    @Html.HiddenFor(model => model.Mode)
+    @Html.HiddenFor(model => model.Lang)
+    @Html.TextBoxFor(model => model.AnswerId, new { id = "answer", style = "display:none;" })
+    <input type="submit" class="btn btn-success" value="Submit" style="margin-top: 20px;" disabled="disabled" id="submitButton" />
+}
+@Styles.Render("~/Content/Site.css")
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $(".answerpanelbody")
+                .click(function () {
+                    $(".answerpanelbody").each(function () {
+                        $(this).css('background-color', '#FFFFFF');
+                    })
+                    $(this).css('background-color', '#FFEB3B');
+                    var id = $(this).attr('id');;
+                    $("#answer").val(id);
+                    $("#submitButton").prop('disabled', false);
+                });
+        });
+    </script>
+}
+
+
