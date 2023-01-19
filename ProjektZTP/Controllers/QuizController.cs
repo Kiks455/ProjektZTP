@@ -1,8 +1,8 @@
 ﻿using ProjektZTP.Data;
 using ProjektZTP.Models;
 using ProjektZTP.Patterns;
-using ProjektZTP.Patterns.Builder;
 using ProjektZTP.Patterns.State;
+using ProjektZTP.Services;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using static ProjektZTP.Models.QuestionViewModels;
@@ -12,11 +12,13 @@ namespace ProjektZTP.Controllers
     public class QuizController : Controller
     {
         private readonly DbConnection db;
+        private readonly UserService _userService;
         private Context _context;
 
         public QuizController()
         {
             db = DbConnection.GetDbConnection();
+            _userService = new UserService(db);
             _context = new Context();
         }
 
@@ -151,23 +153,23 @@ namespace ProjektZTP.Controllers
         [HttpPost]
         public ActionResult QuestionHard(QuestionHardModel model)
         {
-            if(!string.IsNullOrEmpty(model.Answer))
+            if (!string.IsNullOrEmpty(model.Answer))
             {
                 var context = (Context)Session["context"];
                 State state = context.GetState();
                 var result = context.GetState().CheckAnswer(model.Word, new Word { WordEn = model.Answer, WordPl = model.Answer });
-                if(state is LearningState)
+                if (state is LearningState)
                 {
-                    if(result == true)
+                    if (result == true)
                     {
                         return RedirectToAction("QuestionHard");
                     }
                     ViewBag.Message = "Wrong answer";
                     return View(model);
                 }
-                if(state is TestState)
+                if (state is TestState)
                 {
-                    if(result == true)
+                    if (result == true)
                     {
                         state.SetPoints(1);
                     }
@@ -183,20 +185,20 @@ namespace ProjektZTP.Controllers
         public ActionResult Summary()
         {
             var context = (Context)Session["context"];
-            if(context == null)
+            if (context == null)
             {
                 return RedirectToAction("Index", "Home");
             }
             State state = context.GetState();
-            if(state is LearningState)
+            if (state is LearningState)
             {
                 return RedirectToAction("Index", "Home");
             }
-            
+
             var points = state.GetPoints();
             ViewBag.Points = (double)points;
 
-            var user = db.GetUserByEmail(User.Identity.Name);
+            var user = _userService.GetUserByEmail(User.Identity.Name);
             UpdateUserPoints(points);
             ViewBag.Level = user.Level;
             ViewBag.userPoints = (double)user.Score;
@@ -232,7 +234,6 @@ namespace ProjektZTP.Controllers
             return View();
         }
 
-
         public ActionResult ConfirmDifficulty()
         {
             var context = (Context)Session["context"];
@@ -260,7 +261,7 @@ namespace ProjektZTP.Controllers
                 Session["difficulty"] = difficulty;
             }
 
-            if(difficulty == "hard")
+            if (difficulty == "hard")
             {
                 return RedirectToAction("QuestionHard");
             }
@@ -271,7 +272,7 @@ namespace ProjektZTP.Controllers
         private string GetDifficulty()
         {
             var userName = User.Identity.Name;
-            var user = db.GetUserByEmail(userName);
+            var user = _userService.GetUserByEmail(userName);
             var level = user.Level;
 
             if (level < 5)
@@ -289,24 +290,23 @@ namespace ProjektZTP.Controllers
         private void UpdateUserPoints(int points)
         {
             var userName = User.Identity.Name;
-            ApplicationUser user = db.GetUserByEmail(userName);
-            
+            ApplicationUser user = _userService.GetUserByEmail(userName);
+
             if (user == null)
                 return;
 
-            int userScore = db.GetUserScore(user.Id);
-            int userLevel = db.GetUserLevel(user.Id);
+            int userScore = _userService.GetUserScore(user.Id);
+            int userLevel = _userService.GetUserLevel(user.Id);
 
             userScore += points;
-            if(userScore >= 10)
+            if (userScore >= 10)
             {
                 userLevel++;
                 userScore -= 10;
             }
 
-            db.SetUserScore(user.Id, userScore);
-            db.SetUserLevel(user.Id, userLevel);
+            _userService.SetUserScore(user.Id, userScore);
+            _userService.SetUserLevel(user.Id, userLevel);
         }
-
     }
 }
