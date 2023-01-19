@@ -63,6 +63,10 @@ namespace ProjektZTP.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var user = await UserManager.FindByIdAsync(userId);
+            ViewBag.Score = user != null ? user.Score : 0;
+            ViewBag.Level = user != null ? user.Level : 0;
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
